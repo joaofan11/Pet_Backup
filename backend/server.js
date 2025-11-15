@@ -8,7 +8,16 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://petplus.onrender.com', // Seu frontend no Render
+    'http://localhost:3000',
+    'http://localhost:5500'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json()); // Parser para JSON
 
 // Isso faz com que a URL http://localhost:3001/uploads/nome-da-imagem.png funcione
@@ -29,4 +38,5 @@ app.get('/api', (req, res) => {
 app.listen(port, () => {
   console.log(`=====================Servidor rodando em http://localhost:${port}========================== Bem Vindo Ao Petplus
     `);
+
 });
